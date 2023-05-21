@@ -103,13 +103,14 @@ exports.getMovies = async (req, res) => {
 exports.searchMovie = async (req, res) => {
     try{
 
-        const { query } = req.query;
+        const { search } = req.query;
+        console.log('search:',search)
 
         const movies = await Movie.findAll({
           where: {
             [Op.or]: [
-              { movieName: { [Op.iLike]: `%${query}%` } },
-              { description: { [Op.iLike]: `%${query}%` } },
+              { movieName: { [Op.iLike]: `%${search}%` } },
+              { description: { [Op.iLike]: `%${search}%` } },
             ],
           },
         });
@@ -120,6 +121,7 @@ exports.searchMovie = async (req, res) => {
         res.status(500).json({error: err})
     }
 }
+
 
 exports.getMovie =  async (req, res) => {
     try{

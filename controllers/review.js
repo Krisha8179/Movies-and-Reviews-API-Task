@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Movie = require('../models/Review');
 const Review = require('../models/Review');
+const { Op } = require('sequelize');
 
 exports.createMovieReview = async (req, res) => {
     try{
@@ -62,11 +63,12 @@ exports.getMovieReviews = async (req, res) => {
     try{
         const movieId = req.params.id;
         const { sort, filter, page, limit } = req.query;
+        console.log(sort, filter, page, limit);
         const pageValue = parseInt(page) || 1;
         const limitValue = parseInt(limit) || 10;
 
         const sortField = sort || 'id';
-        const sortOrder = sort === 'releaseDate' ? 'DESC' : 'ASC';
+        const sortOrder = sort === 'rating' ? 'DESC' : 'ASC';
     
         const filterOptions = {movieId};
         if (filter) {
